@@ -147,7 +147,7 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
 
         // Filter only the vads_* fields
         $matchedKeys = array_filter(array_keys($data), function ($v) {
-            return strpos($v, 'vads_') === 0;
+            return strpos($v, 'vads_') == 0;
         });
         $data = array_intersect_key($data, array_flip($matchedKeys));
 
