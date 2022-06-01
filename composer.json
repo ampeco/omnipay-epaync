@@ -1,0 +1,26 @@
+{
+    "name": "ampeco/omnipay-epaync",
+    "description": "EpayNC driver for the Omnipay payment processing library",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { "Omnipay\\EpayNC\\": "src/" }
+    },
+    "authors": [
+        {
+            "name": "Alexander Alexiev",
+            "email": "alexander.alexiev@ampeco.com"
+        },
+        {
+            "name": "Petko Kostov",
+            "email": "petko.kostov@ampeco.global"
+        },
+        {
+            "name": "Marry Akifova",
+            "email": "merry.akifova@ampeco.global"
+        }
+    ],
+    "require": {
+        "omnipay/common": "^3"
+    }
+}
