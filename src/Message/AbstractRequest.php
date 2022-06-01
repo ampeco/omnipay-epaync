@@ -153,7 +153,8 @@ abstract class AbstractRequest extends OmniPayAbstractRequest
 
         // Add the certificate
         $data[] = $this->getCertificate();
+        $signature_content = implode('+', $data);
 
-        return sha1(implode('+', $data));
+        return base64_encode(hash_hmac('sha256',$signature_content, $this->getCertificate(), true));
     }
 }
