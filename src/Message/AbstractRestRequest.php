@@ -1,17 +1,21 @@
 <?php
+
 namespace Omnipay\EpayNC\Message;
 
-use Omnipay\Common\Message\AbstractRequest as OmniPayAbstractRequest;
 use Omnipay\Common\Exception\InvalidResponseException;
+use Omnipay\Common\Message\AbstractRequest as OmniPayAbstractRequest;
 use Omnipay\Common\Message\ResponseInterface;
+use Omnipay\EpayNC\CommonParameters;
 
 abstract class AbstractRestRequest extends OmniPayAbstractRequest
 {
+    use CommonParameters;
+
     /**
      * Rest API endpoint
      * @var string
      */
-    protected $liveEndPoint = "https://epaync.nc";
+    protected $liveEndPoint = 'https://epaync.nc';
 
     /**
      * Send data to payzen Rest API as a GET or a POST
@@ -26,21 +30,21 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
             $httpResponse = $this->httpClient->request(
                 $this->getHttpMethod(),
                 $this->getEndpoint() . '?' . http_build_query($data),
-                array(
+                [
                     'Accept' => 'application/json',
                     'Authorization' => 'Basic ' . $this->getBearerToken(),
                     'Content-type' => 'application/json',
-                )
+                ]
             );
         } else {
             $httpResponse = $this->httpClient->request(
                 $this->getHttpMethod(),
                 $this->getEndpoint(),
-                array(
+                [
                     'Accept' => 'application/json',
                     'Authorization' => 'Basic ' . $this->getBearerToken(),
                     'Content-type' => 'application/json',
-                ),
+                ],
                 $this->toJSON($data)
             );
         }
@@ -48,6 +52,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
         try {
             $body = $httpResponse->getBody()->getContents();
             $jsonToArrayResponse = !empty($body) ? json_decode($body, true) : [];
+
             return $this->response = $this->createResponse($jsonToArrayResponse, $httpResponse->getStatusCode());
         } catch (\Exception $e) {
             throw new InvalidResponseException(
@@ -55,54 +60,6 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
                 $e->getCode()
             );
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function setUsername($value)
-    {
-        return $this->setParameter('username', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->getParameter('username');
-    }
-
-    /**
-     * @return string
-     */
-    public function setPassword($value)
-    {
-        return $this->setParameter('password', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->getParameter('password');
-    }
-
-    /**
-     * @return string
-     */
-    public function setTestPassword($value)
-    {
-        return $this->setParameter('testPassword', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getTestPassword()
-    {
-        return $this->getParameter('testPassword');
     }
 
     /**
@@ -125,7 +82,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     /**
      * Convert a set of data into a JSON
      * @param array $data
-     * @param integer $options
+     * @param int $options
      * @return string
      */
     protected function toJSON(array $data, $options = 0)
@@ -136,7 +93,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     /**
      * Allow the use of custom Response
      * @param array $data
-     * @param integer $statusCode
+     * @param int $statusCode
      */
     abstract protected function createResponse($data, $statusCode);
 
@@ -148,9 +105,6 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     {
         $username = $this->getUsername();
         $password = $this->getPassword();
-//        if ($this->getTestMode()) {
-//            $password = $this->getTestPassword();
-//        }
 
         return base64_encode(sprintf(
             '%s:%s',
@@ -161,7 +115,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
 
     /**
      * @param string
-     * @return boolean
+     * @return bool
      */
     public function hasParameter($key)
     {
@@ -169,7 +123,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getWithForm()
     {
@@ -177,7 +131,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     }
 
     /**
-     * @param boolean
+     * @param bool
      * @return self
      */
     public function setWithForm($value)
