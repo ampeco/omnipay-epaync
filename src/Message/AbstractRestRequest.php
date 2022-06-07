@@ -23,7 +23,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     public function sendData($data)
     {
         if ($this->getHttpMethod() == 'GET') {
-            $httpRequest = $this->httpClient->createRequest(
+            $httpResponse = $this->httpClient->request(
                 $this->getHttpMethod(),
                 $this->getEndpoint() . '?' . http_build_query($data),
                 array(
@@ -33,7 +33,7 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
                 )
             );
         } else {
-            $httpRequest = $this->httpClient->createRequest(
+            $httpResponse = $this->httpClient->request(
                 $this->getHttpMethod(),
                 $this->getEndpoint(),
                 array(
@@ -46,9 +46,8 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
         }
 
         try {
-            $httpResponse = $httpRequest->send();
-            $body = $httpResponse->getBody(true);
-            $jsonToArrayResponse = !empty($body) ? $httpResponse->json() : [];
+            $body = $httpResponse->getBody()->getContents();
+            $jsonToArrayResponse = !empty($body) ? json_decode($body, true) : [];
             return $this->response = $this->createResponse($jsonToArrayResponse, $httpResponse->getStatusCode());
         } catch (\Exception $e) {
             throw new InvalidResponseException(

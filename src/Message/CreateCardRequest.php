@@ -49,8 +49,13 @@ class CreateCardRequest extends AbstractRequest
         return $data;
     }
 
-    public function sendData($data)
+/*    public function sendData($data)
     {
         return $this->response = new RedirectToGatewayResponse($this, $data);
+    }*/
+
+    public function getResponseClass()
+    {
+        return RedirectToGatewayResponse::class;
     }
 }
