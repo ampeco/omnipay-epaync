@@ -149,9 +149,9 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     {
         $username = $this->getUsername();
         $password = $this->getPassword();
-        if ($this->getTestMode()) {
-            $password = $this->getTestPassword();
-        }
+//        if ($this->getTestMode()) {
+//            $password = $this->getTestPassword();
+//        }
 
         return base64_encode(sprintf(
             '%s:%s',

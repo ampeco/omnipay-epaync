@@ -41,6 +41,11 @@ class RestGateway extends AbstractGateway
         return $this->createRequest('\Omnipay\PayZen\Message\RestPurchaseRequest', $parameters);
     }
 
+    public function createCard(array $parameters = array()): RequestInterface
+    {
+        return $this->createRequest('\Omnipay\EpayNC\Message\RestCreateCardRequest', $parameters);
+    }
+
     /**
      * @param string
      * @return self
