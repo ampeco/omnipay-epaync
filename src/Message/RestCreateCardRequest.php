@@ -2,8 +2,6 @@
 
 namespace Omnipay\EpayNC\Message;
 
-use Illuminate\Support\Facades\Http;
-
 class RestCreateCardRequest extends AbstractRestRequest
 {
     /**
@@ -18,7 +16,7 @@ class RestCreateCardRequest extends AbstractRestRequest
             'customer' => [
                 'email' => $this->getCard()->getEmail(),
             ],
-            'formAction' => 'REGISTER'
+            'formAction' => 'REGISTER',
         ];
     }
 
@@ -42,6 +40,6 @@ class RestCreateCardRequest extends AbstractRestRequest
     protected function createResponse($data, $statusCode)
     {
         //return $this->response = new RestResponse($this, $data, $statusCode);
-        return $this->response = new RedirectToGatewayResponse($this, $data, $statusCode);
+        return $this->response = new RedirectToGatewayResponse($this, $data);
     }
 }
