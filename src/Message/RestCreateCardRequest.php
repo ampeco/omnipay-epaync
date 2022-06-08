@@ -2,23 +2,25 @@
 
 namespace Omnipay\EpayNC\Message;
 
-use Illuminate\Support\Facades\Http;
-
 class RestCreateCardRequest extends AbstractRestRequest
 {
     /**
+     * Get the raw data array for this message. The format of this varies from gateway to
+     * gateway, but will usually be either an associative array, or a SimpleXMLElement.
+     *
      * @return array
      */
     public function getData()
     {
         return  [
             'amount' => $this->getAmountInteger(),
-            'currency' => 'XPF',
+            'currency' => $this->getCurrency(),
             'orderId' => $this->getTransactionId(),
             'customer' => [
                 'email' => $this->getCard()->getEmail(),
             ],
-            'formAction' => 'REGISTER'
+            'formAction' => 'REGISTER',
+            'locale' => $this->getLanguage(),
         ];
     }
 
@@ -42,6 +44,6 @@ class RestCreateCardRequest extends AbstractRestRequest
     protected function createResponse($data, $statusCode)
     {
         //return $this->response = new RestResponse($this, $data, $statusCode);
-        return $this->response = new RedirectToGatewayResponse($this, $data, $statusCode);
+        return $this->response = new RedirectToGatewayResponse($this, $data);
     }
 }
