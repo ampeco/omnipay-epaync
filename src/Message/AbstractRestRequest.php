@@ -138,4 +138,14 @@ abstract class AbstractRestRequest extends OmniPayAbstractRequest
     {
         return $this->setParameter('withForm', $value);
     }
+
+    public function setLanguage($value): AbstractRestRequest
+    {
+        return $this->setParameter('language', $value);
+    }
+
+    public function getLanguage()
+    {
+        return $this->getParameter('language');
+    }
 }
