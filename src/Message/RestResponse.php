@@ -14,7 +14,7 @@ class RestResponse extends AbstractResponse
     /**
      * @param RequestInterface $request
      * @param array $data
-     * @param intger $statusCode
+     * @param integer $statusCode
      */
     public function __construct(RequestInterface $request, array $data, $statusCode)
     {

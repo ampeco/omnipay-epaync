@@ -3,6 +3,8 @@ namespace Omnipay\EpayNC;
 
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
+use Omnipay\EpayNC\Message\NotificationRequest;
+use Omnipay\EpayNC\Message\RestResponse;
 
 /**
  * EpayNC Rest RestGateway
@@ -95,5 +97,17 @@ class RestGateway extends AbstractGateway
     public function getTestPassword()
     {
         return $this->getParameter('testPassword');
+    }
+
+    public function acceptNotification(array $requestData): RestResponse
+    {
+        return new RestResponse(
+            $this->createRequest(NotificationRequest::class, $requestData),
+            array_merge($requestData, [
+                'isSuccessful' => true,
+            ]), 200
+        );
+
+        //return new RestResponse($this, $requestData, 200);
     }
 }
