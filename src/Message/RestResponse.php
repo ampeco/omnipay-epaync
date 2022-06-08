@@ -27,7 +27,7 @@ class RestResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return !empty($this->data['status']) && $this->data['status'] == 'SUCCESS' && $this->getCode() < 400;
+        return $this->statusCode < 400 && $this->data['isSuccessful'];
     }
 
     /**
@@ -36,5 +36,40 @@ class RestResponse extends AbstractResponse
     public function getCode()
     {
         return $this->statusCode;
+    }
+
+    public function isForTokenization(): bool
+    {
+        return isset($this->data['vads_page_action']) && $this->data['vads_page_action'] === 'REGISTER';
+    }
+
+    public function getToken(): ?string
+    {
+        return @$this->data['vads_identifier']; // the tokenized card
+    }
+
+    public function getCardNumber(): ?string
+    {
+        return @$this->data['vads_card_number'];
+    }
+
+    public function getCardBrand(): ?string
+    {
+        return @$this->data['vads_card_brand'];
+    }
+
+    public function getExpirationMonth(): ?string
+    {
+        return @$this->data['vads_expiry_month'];
+    }
+
+    public function getExpirationYear(): ?string
+    {
+        return @$this->data['vads_expiry_year'];
+    }
+
+    public function getTransactionReference(): ?string
+    {
+        return @$this->data['vads_trans_id'];
     }
 }
