@@ -7,16 +7,16 @@ use Omnipay\Common\Message\RequestInterface;
 class RestResponse extends AbstractResponse
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $statusCode;
 
     /**
      * @param RequestInterface $request
      * @param array $data
-     * @param integer $statusCode
+     * @param int $statusCode
      */
-    public function __construct(RequestInterface $request, array $data, $statusCode)
+    public function __construct(RequestInterface $request, array $data, int $statusCode)
     {
         parent::__construct($request, $data);
         $this->statusCode = $statusCode;
