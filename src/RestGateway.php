@@ -1,9 +1,13 @@
 <?php
+
 namespace Omnipay\EpayNC;
 
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\EpayNC\Message\NotificationRequest;
+use Omnipay\EpayNC\Message\RestCreateCardRequest;
+use Omnipay\EpayNC\Message\RestNotificationResponse;
+use Omnipay\EpayNC\Message\RestPurchaseRequest;
 use Omnipay\EpayNC\Message\RestResponse;
 
 /**
@@ -40,12 +44,12 @@ class RestGateway extends AbstractGateway
      */
     public function purchase(array $parameters = [])
     {
-        return $this->createRequest('\Omnipay\PayZen\Message\RestPurchaseRequest', $parameters);
+        return $this->createRequest(RestPurchaseRequest::class, $parameters);
     }
 
-    public function createCard(array $parameters = array()): RequestInterface
+    public function createCard(array $parameters = []): RequestInterface
     {
-        return $this->createRequest('\Omnipay\EpayNC\Message\RestCreateCardRequest', $parameters);
+        return $this->createRequest(RestCreateCardRequest::class, $parameters);
     }
 
     /**
@@ -99,15 +103,13 @@ class RestGateway extends AbstractGateway
         return $this->getParameter('testPassword');
     }
 
-    public function acceptNotification(array $requestData): RestResponse
+    public function acceptNotification(array $requestData): RestNotificationResponse
     {
-        return new RestResponse(
+        return new RestNotificationResponse(
             $this->createRequest(NotificationRequest::class, $requestData),
             array_merge($requestData, [
                 'isSuccessful' => true,
             ]), 200
         );
-
-        //return new RestResponse($this, $requestData, 200);
     }
 }
