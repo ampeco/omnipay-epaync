@@ -6,6 +6,7 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\EpayNC\Message\NotificationRequest;
 use Omnipay\EpayNC\Message\RestCreateCardRequest;
+use Omnipay\EpayNC\Message\RestDeleteCardRequest;
 use Omnipay\EpayNC\Message\RestNotificationResponse;
 use Omnipay\EpayNC\Message\RestPurchaseRequest;
 
@@ -49,6 +50,11 @@ class RestGateway extends AbstractGateway
     public function createCard(array $parameters = []): RequestInterface
     {
         return $this->createRequest(RestCreateCardRequest::class, $parameters);
+    }
+
+    public function deleteCard(array $parameters = [])
+    {
+        return $this->createRequest(RestDeleteCardRequest::class, $parameters);
     }
 
     /**
