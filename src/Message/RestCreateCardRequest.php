@@ -43,7 +43,6 @@ class RestCreateCardRequest extends AbstractRestRequest
      */
     protected function createResponse($data, $statusCode)
     {
-        //return $this->response = new RestResponse($this, $data, $statusCode);
-        return $this->response = new RedirectToGatewayResponse($this, $data);
+        return $this->response = new RestCreateCardResponse($this, $data);
     }
 }

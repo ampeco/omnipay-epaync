@@ -6,7 +6,7 @@ class CreateCardRequest extends AbstractRequest
 {
     public function getData()
     {
-        $data = array();
+        $data = [];
         $data['vads_action_mode'] = 'INTERACTIVE';
         $data['vads_capture_delay'] = 0;
         $data['vads_ctx_mode'] = $this->getTestMode() ? 'TEST' : 'PRODUCTION';
@@ -49,10 +49,10 @@ class CreateCardRequest extends AbstractRequest
         return $data;
     }
 
-/*    public function sendData($data)
+    public function sendData($data)
     {
         return $this->response = new RedirectToGatewayResponse($this, $data);
-    }*/
+    }
 
     public function getResponseClass()
     {

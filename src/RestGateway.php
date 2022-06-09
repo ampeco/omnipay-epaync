@@ -8,7 +8,6 @@ use Omnipay\EpayNC\Message\NotificationRequest;
 use Omnipay\EpayNC\Message\RestCreateCardRequest;
 use Omnipay\EpayNC\Message\RestNotificationResponse;
 use Omnipay\EpayNC\Message\RestPurchaseRequest;
-use Omnipay\EpayNC\Message\RestResponse;
 
 /**
  * EpayNC Rest RestGateway
@@ -105,11 +104,19 @@ class RestGateway extends AbstractGateway
 
     public function acceptNotification(array $requestData): RestNotificationResponse
     {
+        if (isset($requestData['vads_identifier_status']) && $requestData['vads_identifier_status'] == 'CREATED') {
+            $isSuccessfull = true;
+            $notificationStatusCode = 200;
+        } else {
+            $isSuccessfull = false;
+            $notificationStatusCode = 400;
+        }
+
         return new RestNotificationResponse(
             $this->createRequest(NotificationRequest::class, $requestData),
             array_merge($requestData, [
-                'isSuccessful' => true,
-            ]), 200
+                'isSuccessful' => $isSuccessfull,
+            ]), $notificationStatusCode
         );
     }
 }

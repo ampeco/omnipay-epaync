@@ -5,7 +5,7 @@ namespace Omnipay\EpayNC\Message;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-class RedirectToGatewayResponse extends AbstractResponse implements RedirectResponseInterface
+class RestCreateCardResponse extends AbstractResponse implements RedirectResponseInterface
 {
     public $liveEndpoint = 'https://epaync.nc/vads-payment/';
 
@@ -16,7 +16,7 @@ class RedirectToGatewayResponse extends AbstractResponse implements RedirectResp
 
     public function isSuccessful()
     {
-        return false;
+        return !empty($this->data['status']) && $this->data['status'] == 'SUCCESS' && $this->getCode() < 400;
     }
 
     public function isRedirect()
@@ -26,12 +26,12 @@ class RedirectToGatewayResponse extends AbstractResponse implements RedirectResp
 
     public function getRedirectUrl()
     {
-        return $this->getEndpoint();
+        return $this->data['answer']['paymentURL'];
     }
 
     public function getRedirectMethod()
     {
-        return 'POST';
+        return 'GET';
     }
 
     public function getRedirectData()

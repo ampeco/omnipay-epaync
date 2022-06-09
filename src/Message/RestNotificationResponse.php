@@ -6,6 +6,7 @@ class RestNotificationResponse extends RestResponse
 
     public function isSuccessful()
     {
+        \Illuminate\Support\Facades\Log::info('we are isSuccessful' . $this->statusCode, $this->data);
         return $this->statusCode < 400 && @$this->data['vads_identifier_status'] === 'CREATED';
     }
 
