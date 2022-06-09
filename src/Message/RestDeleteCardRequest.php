@@ -31,7 +31,7 @@ class RestDeleteCardRequest extends AbstractRestRequest
      */
     protected function createResponse($data, $statusCode)
     {
-        return $this->response = new RestDeleteCardResponse($this, $data);
+        return $this->response = new RestDeleteCardResponse($this, $data, $statusCode);
     }
 
     public function setPaymentMethodToken($value)
