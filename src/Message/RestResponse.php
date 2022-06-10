@@ -27,7 +27,7 @@ class RestResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return $this->statusCode < 400 && $this->data['isSuccessful'];
+        return $this->statusCode < 400 && @$this->data['status'] == 'SUCCESS';
     }
 
     /**
