@@ -17,6 +17,7 @@ class RestPurchaseResponse extends RestResponse
         if (!$this->isSuccessful()) {
             return null;
         }
+
         return $this->getData()['answer']['orderDetails']['orderId'];
     }
 
@@ -28,5 +29,10 @@ class RestPurchaseResponse extends RestResponse
         }
 
         return 'PAID' === $data['answer']['orderStatus'];
+    }
+
+    public function getMessage()
+    {
+        return $this->data['answer']['errorMessage'] ?? parent::getMessage();
     }
 }
