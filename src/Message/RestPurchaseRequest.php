@@ -40,7 +40,7 @@ class RestPurchaseRequest extends AbstractRestRequest
         if ($this->getFormType()) {
             $data['formAction'] = $this->getFormType();
         }
-        \Illuminate\Support\Facades\Log::info('we are in getData', $data);
+
         return $data;
     }
 
