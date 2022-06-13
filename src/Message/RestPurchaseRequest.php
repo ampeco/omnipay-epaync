@@ -11,7 +11,7 @@ class RestPurchaseRequest extends AbstractRestRequest
         $this->validate('amount', 'currency');
 
         $data = [
-            'amount' => $this->getAmountInteger(),
+            'amount' => $this->getAmount(),
             'currency' => $this->getCurrency(),
             'orderId' => $this->getTransactionId(),
         ];
@@ -40,7 +40,7 @@ class RestPurchaseRequest extends AbstractRestRequest
         if ($this->getFormType()) {
             $data['formAction'] = $this->getFormType();
         }
-
+        \Illuminate\Support\Facades\Log::info('we are in getData', $data);
         return $data;
     }
 
