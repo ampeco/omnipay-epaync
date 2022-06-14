@@ -11,7 +11,7 @@ class RestPurchaseRequest extends AbstractRestRequest
         $this->validate('amount', 'currency');
 
         $data = [
-            'amount' => $this->getAmountInteger(),
+            'amount' => $this->getAmount(),
             'currency' => $this->getCurrency(),
             'orderId' => $this->getTransactionId(),
         ];
