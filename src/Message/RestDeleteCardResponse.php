@@ -8,4 +8,9 @@ class RestDeleteCardResponse extends RestResponse
     {
         return $this->statusCode < 400 && @$this->data['status'] === 'SUCCESS';
     }
+
+    public function getMessage()
+    {
+        return $this->data['answer']['errorMessage'] ?? parent::getMessage();
+    }
 }
