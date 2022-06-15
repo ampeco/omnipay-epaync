@@ -125,4 +125,24 @@ class RestGateway extends AbstractGateway
             ]), $notificationStatusCode
         );
     }
+
+    public function authorize(array $parameters = [])
+    {
+        throw new \RuntimeException('The pre-authorize is not supported by EpayNC bank');
+    }
+
+    public function supportsAuthorize(): bool
+    {
+        return false;
+    }
+
+    public function capture(array $parameters = [])
+    {
+        throw new \RuntimeException('The capture method is not supported by EpayNC bank');
+    }
+
+    public function supportsCapture()
+    {
+        return false;
+    }
 }
