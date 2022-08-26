@@ -26,7 +26,7 @@ class RestNotificationResponse extends RestResponse
 
     public function getCardBrand(): ?string
     {
-        return @$this->data['vads_card_brand'];
+        return ($this->data['vads_card_brand']) ? $this->maskCard($this->data['vads_card_brand']) : null;
     }
 
     public function getExpirationMonth(): ?string
@@ -42,6 +42,15 @@ class RestNotificationResponse extends RestResponse
     public function getTransactionReference(): ?string
     {
         return @$this->data['vads_trans_id'];
+    }
+
+    /**
+     * CB card is type VISA
+     *
+     */
+    protected function maskCard(string $cardType): string
+    {
+        return ($cardType == 'CB') ? 'visa' : $cardType;
     }
 
 }
