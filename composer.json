@@ -3,7 +3,7 @@
     "description": "Omnipay plugin for: https://epaync.nc/doc/fr-FR/rest/V4.0/api/ and https://payzen.io/en-EN/rest/V4.0/api/",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "autoload": {
         "psr-4": { "Omnipay\\EpayNC\\": "src/" }
     },
@@ -23,5 +23,12 @@
     ],
     "require": {
         "omnipay/common": "^3"
-    }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
