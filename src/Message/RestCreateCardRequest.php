@@ -13,7 +13,7 @@ class RestCreateCardRequest extends AbstractRestRequest
     public function getData()
     {
         return  [
-            'amount' => $this->getAmountInteger(),
+            'amount' => 0,
             'currency' => $this->getCurrency(),
             'orderId' => $this->getTransactionId(),
             'customer' => [
