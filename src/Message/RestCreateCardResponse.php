@@ -38,4 +38,19 @@ class RestCreateCardResponse extends AbstractResponse implements RedirectRespons
     {
         return $this->data;
     }
+
+    public function getMessage(): ?string
+    {
+        $errorMessages = [];
+
+        if (isset($this->data['answer']['errorMessage']) && $this->data['answer']['errorMessage']) {
+            $errorMessages[] = $this->data['answer']['errorMessage'];
+        }
+
+        if (isset($this->data['answer']['detailedErrorMessage']) && $this->data['answer']['detailedErrorMessage']) {
+            $errorMessages[] = $this->data['answer']['detailedErrorMessage'];
+        }
+
+        return implode(' | ', $errorMessages);
+    }
 }
